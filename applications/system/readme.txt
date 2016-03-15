@@ -1,0 +1,1 @@
+เปลี่ยน config.example.php เป็น config.php เวลาขึ้น Production 
