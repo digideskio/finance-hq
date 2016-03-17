@@ -3,8 +3,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 header("Content-Type: text/html; charset=utf-8");
-session_start();
 ini_set("session.gc_maxlifetime", 86400);
+
+session_start();
 
 define('ROOT_DIR', realpath(dirname(__FILE__)).'/');
 define('APP_DIR', ROOT_DIR.'applications/');

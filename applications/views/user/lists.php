@@ -1,6 +1,10 @@
 <div class="col-sm-3"></div>
 <div class="col-sm-6">
     <h3>ใบจ่ายเงินเดือนตาม ปี-เดือน</h3>
+    <div class="col-sm-12">
+        <span class="label label-default">แนะนำ</span> <a href="<?=getUrl();?>help" target="_blank">การตั้งค่าเพื่อพิมพ์ใบจ่ายเงินเดือน</a>
+    </div>
+    
     <table class="table table-striped">
         <thead>
             <tr>

@@ -4,15 +4,15 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /finance
+    RewriteBase /finance/
     
     # Deny Access to Hidden Files and Directories
-    RewriteCond %{SCRIPT_FILENAME} -d [OR]
-    RewriteCond %{SCRIPT_FILENAME} -f
-    RewriteRule "(^|/)\." - [F]
+    #RewriteCond %{SCRIPT_FILENAME} -d [OR]
+    #RewriteCond %{SCRIPT_FILENAME} -f
+    #RewriteRule "(^|/)\." - [F]
 
     # Handle Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule . index.php/$1 [L]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>

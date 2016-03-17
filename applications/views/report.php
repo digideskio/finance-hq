@@ -1,5 +1,10 @@
 <style type="text/css">
-        
+        @media print{
+            body{
+                font-size: 12px;
+                font-weight: normal;
+            }
+        }
         table{
             width: 100%;
             border-spacing: 0;
@@ -47,7 +52,6 @@
             ?>
             <div class="test-big-contain">
 
-
             <table style="margin-bottom: 1em;" class="t-contain">
                 <tbody>
                     <tr style="line-height: 30px;">
@@ -56,7 +60,7 @@
                                 <tr>
                                     <td>ใบจ่ายเงินเดือนข้าราชการกองทัพบก</td>
                                     <td>หน่วย รพ.ค่ายสุรศักดิ์มนตรี</td>
-                                    <td>วันที่จ่ายเงิน ธ.ค. 2558</td>
+                                    <td>วันที่จ่ายเงิน <?=$top_date;?></td>
                                 </tr>
                             </table>
                         </td>
@@ -97,7 +101,7 @@
                                         <table>
                                             <tr>
                                                 <td class="text-right" width="12.5%">รายได้รวมสะสม</td>
-                                                <td class="text-right" width="12.5%">ภาษีสะสม</td>
+                                                <td class="text-right" width="12.5%">ง/ด ตกเบิก</td>
                                                 <td class="text-right" width="12.5%">เงินตำแหน่ง</td>
                                                 <td class="text-right" width="12.5%">กบข เพิ่ม</td>
                                                 <td class="text-right" width="12.5%">ภาษี</td>
@@ -111,7 +115,16 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-right"><?=toNumber($item['BX']);?></td>
-                                                <td class="text-right"><?=toNumber($item['BS']);?></td>
+                                                <td class="text-right">
+                                                    <?php
+                                                    if( $item['type'] == 2 ){
+                                                        $brbs = $item['BR'] + $item['BS'];
+                                                        echo toNumber($brbs);
+                                                    }else{
+                                                        echo toNumber($item['BS']);
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td class="text-right">
                                                     <?php
                                                     $BOBP = $item['BO'] + $item['BP'];
@@ -132,15 +145,15 @@
                                 <tbody>
                                     <tr width="20%">
                                         <td>เบิกสุทธิ</td>
-                                        <td><?=toNumber($item['BM']);?></td>
+                                        <td class="text-right"><?=toNumber($item['BM']);?></td>
                                     </tr>
                                     <tr>
                                         <td>หนี้สิน</td>
-                                        <td><?=toNumber($item['BJ']);?></td>
+                                        <td class="text-right"><?=toNumber($item['BJ']);?></td>
                                     </tr>
                                     <tr>
-                                        <td class="bold">จ่ายสุทธิ</td>
-                                        <td class="bold"><?=toNumber($item['CD']);?></td>
+                                        <td>จ่ายสุทธิ</td>
+                                        <td class="text-right bold"><?=toNumber($item['CD']);?></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -155,7 +168,7 @@
                                     <td class="tbr" width="10%">อทบ.(พ)</td>
                                     <td class="tbr" width="10%">อทบ.(บ)</td>
                                     <td class="tbr" width="10%">กู้เคหะ</td>
-                                    <td class="tbr" width="10%">อัคคีึภัย</td>
+                                    <td class="tbr" width="10%">อัคคีภัย</td>
                                     <td class="tbr" width="10%">ณาปนกิจ</td>
                                     <td class="tbr" width="10%">กองทุนฯ 2</td>
                                     <td class="tbr" width="10%">สร.รวม</td>
@@ -164,10 +177,10 @@
                                 <tr>
                                     <td class="tbr text-right"><?=toNumber($item['Q']);?></td>
                                     <td class="tbr text-right"><?=toNumber($item['R']);?></td>
-                                    <td class="tbr text-right"></td>
+                                    <td class="tbr text-right">0.00</td>
                                     <td class="tbr text-right"><?=toNumber($item['T']);?></td>
                                     <td class="tbr text-right"><?=toNumber($item['V']);?></td>
-                                    <td class="tbr text-right"></td>
+                                    <td class="tbr text-right">0.00</td>
                                     <td class="tbr text-right"><?=toNumber($item['BC']);?></td>
                                     <td class="tbr text-right"><?=toNumber($item['AW']);?></td>
                                     <td class="tbr text-right"><?=toNumber($item['AZ']);?></td>
@@ -188,7 +201,7 @@
                                 <tr>
                                     <td class="tbr">ขยะ</td>
                                     <td class="tbr">ออท.</td>
-                                    <td class="tbr">พลา</td>
+                                    <td class="tbr clear-padding">เวชสารแพทย์</td>
                                     <td class="tbr">น้ำประปา</td>
                                     <td class="tbr">สวัสดิการศพ</td>
                                     <td class="tbr">สหกรณ์ฯ</td>
@@ -200,7 +213,7 @@
                                 <tr>
                                     <td class="tbr text-right"><?=toNumber($item['AR']);?></td>
                                     <td class="tbr text-right"><?=toNumber($item['AK']);?></td>
-                                    <td class="tbr text-right"></td>
+                                    <td class="tbr text-right"><?=toNumber($item['AH']);?></td>
                                     <td class="tbr text-right"><?=toNumber($item['AO']);?></td>
                                     <td class="tbr text-right"><?=toNumber($item['BH']);?></td>
                                     <td class="tbr text-right">
