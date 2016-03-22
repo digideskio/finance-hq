@@ -146,9 +146,10 @@ class User extends Controller{
     
     public function report($date){
         global $short_months;
-        if( $this->user === false ){
-            redirect();
-        }
+        // ให้ front ยืมการแสดงผลหน้านี้ไปก่อน
+        // if( $this->user === false ){
+        //     redirect();
+        // }
         
         $date = input_etc($date);
         list($y, $m) = explode('-', $date);

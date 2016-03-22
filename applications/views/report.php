@@ -1,10 +1,5 @@
 <style type="text/css">
-        @media print{
-            body{
-                font-size: 12px;
-                font-weight: normal;
-            }
-        }
+        
         table{
             width: 100%;
             border-spacing: 0;
@@ -43,14 +38,34 @@
         .bold{
             font-weight: bold;
         }
+        @media print{
+            body{
+                font-size: 12px;
+                font-weight: normal;
+            }
+            .half-page{
+                /*margin-top: 143px;*/
+                margin-top: 123px;
+            }
+        }
     </style>
     <?php
-    
+    $i = 0;
     foreach( $items as $key => $item ){
         // dump($item);
         if( strlen($item['A']) === 13 ){
+            
+            $i++;
+            $test_mod = $i % 2 ;
+            
+            $half_page = '';
+            // เพิ่มช่องว่างให้ตารางตัวแรก
+            if( $test_mod === 0 ){
+                $half_page = 'half-page';
+            }
+            
             ?>
-            <div class="test-big-contain">
+            <div class="test-big-contain <?=$half_page;?>">
 
             <table style="margin-bottom: 1em;" class="t-contain">
                 <tbody>
@@ -281,8 +296,14 @@
                 </tbody>
             </table>
             </div>
+            
+            <?php 
+            // ตัดขึ้นหน้าใหม่
+            if( $test_mod === 0 ){
+            ?>
             <div style="page-break-after: always;"></div>
             <?php
+            }
         }
 
     }

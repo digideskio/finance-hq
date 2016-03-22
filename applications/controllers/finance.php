@@ -101,6 +101,16 @@ class Finance extends Controller
         $db = $this->load_mongo();
         $db->documents->remove(array('date_sheet' => $date, 'type' => $type));
         
+        // เก็บ log 
+        $user_id = (string) $this->user->_id;
+        $user_log = array(
+            'date' => new MongoDate(),
+            'id' => new MongoId($user_id),
+            'idcard' => $this->user->idcard,
+            'name' => $this->user->firstname,
+        );
+        $db->logs->insert($user_log);
+        
         $time = time();
         $file_path = 'reports/'.$time.'.'.$ext;
         move_uploaded_file($file['tmp_name'], $file_path);

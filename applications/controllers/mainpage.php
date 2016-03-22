@@ -7,19 +7,45 @@ class Mainpage extends Controller
 
 	function base()
 	{
-		// var_dump($this->user);
-		// exit;
-		// if( $this->user === false ){
-		// 	$view = $this->load_view('mainpage');
-		// 	$view->render();
-		// 	exit;
-		// }else{
-		// 	$this->redirect('hellos');
-		// }
 		$view = $this->load_view('mainpage');
 		$view->render();
-		// exit;
 	}
+    
+    function search(){
+        global $full_months;
+        $idcard = input_post('idcard');
+        $match_test = preg_match('/(\d+){13,}/', $idcard, $match);
+        
+        if( $match_test > 0 ){
+            $idcard = $match['0'];
+        }else{
+            redirect('mainpage' ,'เลขบัตรประชาชนไม่ถูกต้อง');
+        }
+        
+        $db = $this->load_mongo();
+        $items = $db->documents->find(array('A' => $idcard), array('date_sheet'));
+        
+        $view = $this->load_view('user/receipt_list');
+        $view->set_val(array('items' => $items, 'months' => $full_months));
+        $view->render();
+        
+    }
+    
+    public function details($id){
+        global $short_months;
+        
+        $db = $this->load_mongo();
+        $mongoId = new MongoId($id);
+        $item = $db->documents->findOne(array('_id' => $mongoId));
+        
+        // $date = input_etc($date);
+        list($y, $m) = explode('-', $item['date_sheet']);
+        $top_date = $short_months[$m].' '.$y;
+        
+        $view = $this->load_view('finance/report_details');
+        $view->set_val(array('item' => $item, 'top_date' => $top_date));
+		$view->render();
+    }
 
 	function login(){
 
